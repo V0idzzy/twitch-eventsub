@@ -155,3 +155,36 @@ type ChannelUpdateEvent struct {
 	// ContentClassificationLabels are the updated content classification labels
 	ContentClassificationLables []string `json:"content_classification_labels"`
 }
+
+// ChannelSubscriptionGiftEvent is triggered when a user gifts a subscription
+type ChannelSubscriptionGiftEvent struct {
+	// UserID is the ID of the user redeeming the reward
+	UserID string `json:"user_id"`
+
+	// UserName is the display name of the user redeeming the reward
+	UserName string `json:"user_name"`
+
+	// UserInput is an optional message provided by the user
+	UserInput string `json:"user_input"`
+
+	// BroadcasterUserID is the ID of the broadcaster
+	BroadcasterUserID string `json:"broadcaster_user_id"`
+
+	// BroadcasterUserLogin is the login of the broadcaster
+	BroadcasterUserLogin string `json:"broadcaster_user_login"`
+
+	// BroadcasterUserName is the display name of the broadcaster
+	BroadcasterUserName string `json:"broadcaster_user_name"`
+
+	// Total Represents the total amount of subs gifted in this single event
+	Total int `json:"total"`
+
+	// Tier represents the tier of subscription gifted ("1000", "2000", "3000")
+	Tier string `json:"tier"`
+
+	// CumulativeTotal represents to total number of subscriptions that a user has gifted to the Broadvasters channel
+	CumulativeTotal int `json:"cumulative_total"`
+
+	// IsAnonymous represents if the user checked to remain anonymous when gifting the subscriptions
+	IsAnonymous bool `json:"is_anonymous"`
+}
