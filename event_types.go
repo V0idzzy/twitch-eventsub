@@ -158,33 +158,70 @@ type ChannelUpdateEvent struct {
 
 // ChannelSubscriptionGiftEvent is triggered when a user gifts a subscription
 type ChannelSubscriptionGiftEvent struct {
-	// UserID is the ID of the user redeeming the reward
-	UserID string `json:"user_id"`
-
-	// UserName is the display name of the user redeeming the reward
+	UserID   string `json:"user_id"`
 	UserName string `json:"user_name"`
-
-	// UserInput is an optional message provided by the user
-	UserInput string `json:"user_input"`
-
-	// BroadcasterUserID is the ID of the broadcaster
-	BroadcasterUserID string `json:"broadcaster_user_id"`
-
-	// BroadcasterUserLogin is the login of the broadcaster
+	// a message if included
+	UserInput            string `json:"user_input"`
+	BroadcasterUserID    string `json:"broadcaster_user_id"`
 	BroadcasterUserLogin string `json:"broadcaster_user_login"`
-
-	// BroadcasterUserName is the display name of the broadcaster
-	BroadcasterUserName string `json:"broadcaster_user_name"`
-
-	// Total Represents the total amount of subs gifted in this single event
-	Total int `json:"total"`
-
+	BroadcasterUserName  string `json:"broadcaster_user_name"`
+	Total                int    `json:"total"`
 	// Tier represents the tier of subscription gifted ("1000", "2000", "3000")
-	Tier string `json:"tier"`
+	Tier            string `json:"tier"`
+	CumulativeTotal int    `json:"cumulative_total"`
+	IsAnonymous     bool   `json:"is_anonymous"`
+}
 
-	// CumulativeTotal represents to total number of subscriptions that a user has gifted to the Broadvasters channel
-	CumulativeTotal int `json:"cumulative_total"`
+// ChannelSubscriptionMessage is triggered when a user resubs
+type ChannelSubscriptionMessageEvent struct {
+	UserID               string `json:"user_id"`
+	UserLogin            string `json:"user_login"`
+	UserName             string `json:"user_name"`
+	BroadcasterUserID    string `json:"broadcaster_user_id"`
+	BroadcasterUserLogin string `json:"broadcaster_user_login"`
+	BroadcasterUserName  string `json:"broadcaster_user_name"`
+	// Tier represents the tier of subscription gifted ("1000", "2000", "3000")
+	Tier             string `json:"tier"`
+	Message          string `json:"message"`
+	CumulativeMonths int    `json:"cumulative_months"`
+	StreakMonths     int    `json:"streak_months"`
+	DurationMonths   int    `json:"duratoin_months"`
+}
 
-	// IsAnonymous represents if the user checked to remain anonymous when gifting the subscriptions
-	IsAnonymous bool `json:"is_anonymous"`
+// ChannelSubscribe is triggered when a user subscribes (not resub)
+type ChannelSubscribeEvent struct {
+	UserID               string `json:"user_id"`
+	UserLogin            string `json:"user_login"`
+	UserName             string `json:"user_name"`
+	BroadcasterUserID    string `json:"broadcaster_user_id"`
+	BroadcasterUserLogin string `json:"broadcaster_user_login"`
+	BroadcasterUserName  string `json:"broadcaster_user_name"`
+	// Tier represents the tier of subscription gifted ("1000", "2000", "3000")
+	Tier   string `json:"tier"`
+	IsGift bool   `json:"is_gift"`
+}
+
+// ChannelCheer is triggered when a users cheers on the channel cheers (not external integrations or powerups or combos)
+type ChannelCheerEvent struct {
+	IsAnonymous          bool   `json:"is_anonymous"`
+	UserId               string `json:"user_id"`
+	UserLogin            string `json:"user_login"`
+	UserName             string `json:"user_name"`
+	BroadcasterUserID    string `json:"broadcaster_user_id"`
+	BroadcasterUserLogin string `json:"broadcaster_user_login"`
+	BroadcasterUserName  string `json:"broadcaster_user_name"`
+	Message              string `json:"message"`
+	Bits                 int    `json:"bits"`
+}
+
+// ChannelFollow is triggered when a users follow
+type ChannelFollowEvent struct {
+	UserId               string `json:"user_id"`
+	UserLogin            string `json:"user_login"`
+	UserName             string `json:"user_name"`
+	BroadcasterUserID    string `json:"broadcaster_user_id"`
+	BroadcasterUserLogin string `json:"broadcaster_user_login"`
+	BroadcasterUserName  string `json:"broadcaster_user_name"`
+	// FollowedAt uses the RFC3339 timestamp format
+	FollowedAt string `json:"followed_at"`
 }
